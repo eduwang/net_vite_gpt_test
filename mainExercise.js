@@ -13,6 +13,13 @@ const downloadBtnArea = document.getElementById('downloadBtnArea');
 
 // ✅ GPT 응답 요청 함수 (챗봇용 프롬프트 포함)
 async function fetchGPTResponse(prompt) {
+  // ✅ system 프롬프트 + 전체 대화 히스토리 + 현재 질문을 합쳐서 전달
+  const fullHistory = [
+    { role: "system", content: gptSystemPrompt },
+    ...chatHistory,
+    { role: "user", content: prompt }
+  ];
+
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -20,20 +27,9 @@ async function fetchGPTResponse(prompt) {
       "Authorization": `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [
-        // 🔧 GPT 역할 설정: 이 메시지로 GPT의 성격과 답변 스타일을 지정
-        {
-          role: "system",
-          content: gptSystemPrompt
-        },
-        // 👤 사용자 입력
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
-      temperature: 0.7 // 답변의 창의성 정도 (0=고정, 1=창의적)
+      model: "gpt-4-turbo",
+      messages: fullHistory,
+      temperature: 0.6 // 답변의 창의성 정도 (0=고정, 1=창의적)
     }),
   });
 
@@ -47,6 +43,19 @@ async function fetchGPTResponse(prompt) {
 sendBtn.addEventListener('click', async () => {
     const prompt = userInput.value.trim();
     if (!prompt) return;
+
+      // ✅ 여기에 직접 fullHistory 생성해서 콘솔 출력
+    const fullHistory = [
+      { role: "system", content: gptSystemPrompt },
+      ...chatHistory,
+      { role: "user", content: prompt }
+    ];
+
+    console.log("🧪 GPT에 전달된 메시지 목록:");
+    fullHistory.forEach((m, i) => {
+      console.log(`${i + 1}. [${m.role}] ${m.content}`);
+    });
+
   
     // 👤 사용자 메시지 출력 + 저장
     chatbox.innerHTML += `<div class="user-message">나: ${prompt}</div>`;
@@ -61,6 +70,11 @@ sendBtn.addEventListener('click', async () => {
     chatbox.innerHTML += `<div class="gpt-message">GPT: ${reply}</div>`;
     chatHistory.push({ role: 'assistant', content: reply }); // ⬅️ 저장
     chatbox.scrollTop = chatbox.scrollHeight;
+
+    // ✅ 수식 렌더링
+    if (window.MathJax) {
+      MathJax.typeset();
+    }
   });
 
 // ✅ 엔터 키 입력 시 자동 전송
@@ -94,12 +108,12 @@ async function fetchFeedbackFromGPT(history) {
         "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: "gpt-4-turbo",
         messages: [
           { role: "system", content: feedbackSystemPrompt },
           ...history // 기존 대화 내용 그대로 전달
         ],
-        temperature: 0.7
+        temperature: 0.6
       }),
     });
   
@@ -122,6 +136,11 @@ feedbackBtn.addEventListener('click', async () => {
         <h3 style="font-weight:600; margin-bottom: 0.5rem;">🧑‍🏫 GPT 피드백</h3>
         <p>${feedback.replace(/\n/g, "<br>")}</p>
       `;
+            
+      // ✅ 수식 렌더링 트리거
+      if (window.MathJax) {
+        MathJax.typeset();
+      }
   
       // ✅ 콘솔 출력 시작
       console.log("🧠 [개발자용 디버그 로그]");
@@ -188,7 +207,33 @@ function downloadCSV(data) {
     link.click();
     document.body.removeChild(link);
   }
+
   
+// 이미지 캐러셀
+// 이미지 목록 (이미지 경로들을 여기에 배열로 추가)
+const images = [
+  "/public/Imgs/test_1.png",
+  "/public/Imgs/test_2.png",
+  "/public/Imgs/test_3.png"
+];
+
+let currentIndex = 0;
+
+const carouselImage = document.getElementById("carouselImage");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+prevBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  carouselImage.src = images[currentIndex];
+});
+
+nextBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % images.length;
+  carouselImage.src = images[currentIndex];
+});
+
+
 
 
 
@@ -196,13 +241,15 @@ function downloadCSV(data) {
 
 // 개발자용 기능 설정
 // ✅ 전역 프롬프트 변수 (기본값)
-let gptSystemPrompt = "너는 수학을 어려워하는 학생이야. 교사의 질문에 대답하거나 질문을 해.";
+let gptSystemPrompt = 
+'너는 이차방정식을 잘 이해하지 못하는 중학생이야. 교사가 질문하면 아는 만큼 솔직하게 대답하고, 모르면 "잘 모르겠어요" 또는 "조금 헷갈려요"라고 말해. 너는 정답을 알려주려 하기보다는, 배우는 입장에서 생각을 말하려고 해. 틀릴 수도 있어. 교사가 도와주면 따라가려고 노력하는 자세야. 수식은 가능한 한 LaTeX 형식으로 표현해줘. 예: \[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]';
 let feedbackSystemPrompt = `당신은 교사교육 전문가 입니다. 주어진 이미지 설명과 대화 내용을 분석하고, 
 교사교육 전문가의 관점에서 피드백을 해줘.
 피드백은 다음 기준을 따라야 합니다:
 1. 학생이 어려워하는 개념을 구체적으로 지적하기
 2. 개선 방법을 단계별로 제공하기
 3. 교사가 어떤 방식으로 지도하면 좋을지 조언하기
+필요한 경우 수학 수식은 LaTeX 형식으로 작성해줘. 예: \[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]
 `;
 
 // ✅ 개발자용 프롬프트 설정 DOM 요소

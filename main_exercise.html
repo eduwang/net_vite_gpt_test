@@ -6,6 +6,8 @@
   <title>예비 교사를 위한 Lesson Play 챗봇</title>
   <script type="module" src="/mainExercise.js"></script>
   <link rel="stylesheet" href="/mainexercise.css" />
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
@@ -15,14 +17,14 @@
   
     <!-- GPT 대화 프롬프트 -->
     <div style="margin-bottom: 1rem;">
-      <label for="gptPromptInput" ><strong>GPT(학생 역할) 프롬프트:</strong></label><br>
+      <label for="gptPromptInput" ><strong>GPT(학생 역할) 프롬프트(4-turbo):</strong></label><br>
       <textarea id="gptPromptInput" rows="6" style="width: 100%; margin-top: 0.5rem; font-size: 1rem; color: #000000;"></textarea><br>
       <button id="setGptPromptBtn" style="margin-top: 0.5rem;">GPT 프롬프트 설정</button>
     </div>
   
     <!-- 피드백 프롬프트 -->
     <div>
-      <label for="feedbackPromptInput"><strong>GPT(피드백 역할) 프롬프트:</strong></label><br>
+      <label for="feedbackPromptInput"><strong>GPT(피드백 역할) 프롬프트(4-turbo):</strong></label><br>
       <textarea id="feedbackPromptInput" rows="6" style="width: 100%; margin-top: 0.5rem; font-size: 1rem; color: #000000;"></textarea><br>
       <button id="setFeedbackPromptBtn" style="margin-top: 0.5rem;">피드백 프롬프트 설정</button>
     </div>
@@ -41,7 +43,14 @@
       <!-- 왼쪽: 이미지 + 챗봇 -->
       <div class="left-panel">
         <div class="image-box">
-          <img src="예시이미지.png" alt="활동 관련 이미지" />
+          <div class="carousel">
+            <button class="carousel-btn left" id="prevBtn">&#9664;</button>
+            
+            <img id="carouselImage" src="/public/Imgs/test_1.png" alt="캐러셀 이미지" />
+
+
+            <button class="carousel-btn right" id="nextBtn">&#9654;</button>
+          </div>
         </div>
 
         <div class="chat-container">
