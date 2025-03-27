@@ -1,0 +1,59 @@
+/* 전체 배경과 폰트 설정 */
+body {
+    background-color: #f3f4f6; /* Tailwind의 gray-100 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #374151; /* Tailwind의 gray-700 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* 메인 컨테이너 스타일 */
+  .main-container {
+    background-color: #ffffff; /* white */
+    padding: 2rem;
+    border-radius: 1rem; /* rounded-xl */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1), 
+                0 2px 4px rgba(0,0,0,0.06); /* shadow-lg */
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+  }
+  
+  /* 제목 스타일 */
+  .main-container h1 {
+    font-size: 1.75rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 0.5rem;
+  }
+  
+  /* 소개 텍스트 스타일 */
+  .main-container p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #6b7280; /* gray-500 */
+  }
+  
+  /* 버튼 스타일 */
+  .main-btn {
+    background-color: #4b5563; /* Tailwind gray-600 */
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem; /* rounded */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .main-btn:hover {
+    background-color: #374151; /* Tailwind gray-700 */
+  }
+  
+  /* 링크 스타일 제거 (button 내부에 a태그 쓸 경우 대비) */
+  a {
+    text-decoration: none;
+  }
+  
