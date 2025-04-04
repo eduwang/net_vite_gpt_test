@@ -6,7 +6,8 @@ const openai = new OpenAI({
 
 export async function handler(event) {
   const body = JSON.parse(event.body);
-  const model = body.model || 'gpt-4-turbo';
+  const model = body.model || 'gpt-4-turbo';// 👈 기본값 설정 가능 
+  // 클라이언트에서 모델이름을 받아와서 사용하거나, gpt-4-turbo가 사용됨
 
   console.log("✅ 모델:", model);
   console.log("✅ 메시지 수:", body.messages?.length);
