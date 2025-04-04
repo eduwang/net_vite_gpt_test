@@ -20,11 +20,10 @@ async function fetchGPTResponse(prompt) {
     { role: "user", content: prompt }
   ];
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  const response = await fetch("/.netlify/functions/gptProxy", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`
     },
     body: JSON.stringify({
       model: "gpt-3.5-turbo",
@@ -101,11 +100,10 @@ const feedbackBtn = document.getElementById('feedbackBtn');
 
 //피드백용 GPT 호출 함수
 async function fetchFeedbackFromGPT(history) {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("/.netlify/functions/gptProxy", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
