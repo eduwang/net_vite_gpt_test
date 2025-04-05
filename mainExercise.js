@@ -34,6 +34,12 @@ async function fetchGPTResponse(prompt) {
 
   // ✅ 응답 처리
   const data = await response.json();
+
+  // ✅ 여기에 방어 코드 추가
+  if (!data.choices || !Array.isArray(data.choices) || !data.choices[0]) {
+    throw new Error("GPT 응답 오류: " + JSON.stringify(data));
+  }
+
   return data.choices[0].message.content;
 }
 
@@ -116,6 +122,12 @@ async function fetchFeedbackFromGPT(history) {
     });
   
     const data = await response.json();
+
+    // ✅ 여기에 방어 코드 추가
+    if (!data.choices || !Array.isArray(data.choices) || !data.choices[0]) {
+      throw new Error("GPT 응답 오류: " + JSON.stringify(data));
+    }
+
     return data.choices[0].message.content;
   }
   
