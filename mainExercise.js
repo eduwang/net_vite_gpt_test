@@ -1,5 +1,5 @@
 // ✅ 환경변수에서 API 키 불러오기 (Vite 사용 시)
-// const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
 // ✅ DOM 요소 가져오기
 const chatbox = document.getElementById('chatbox');
@@ -106,10 +106,11 @@ const feedbackBtn = document.getElementById('feedbackBtn');
 
 //피드백용 GPT 호출 함수
 async function fetchFeedbackFromGPT(history) {
-    const response = await fetch("/.netlify/functions/gptProxy", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: "gpt-4-turbo",
