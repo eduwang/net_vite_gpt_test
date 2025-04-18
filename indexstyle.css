@@ -46,6 +46,7 @@ body {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 1%;
   }
   
   .main-btn:hover {
