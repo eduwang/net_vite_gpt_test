@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>예비 교사를 위한 Lesson Play 챗봇</title>
+  <script type="module" src="/mainExerciseAssistants.js"></script>
+  <link rel="stylesheet" href="/mainexercise.css" />
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <!-- 💻 개발자용 프롬프트 설정 영역 -->
+<div id="devPromptSetup" style="margin-top: 2rem; padding: 1rem; background: #e5e7eb; border-radius: 0.5rem;">
+    <h3 style="font-weight: bold; margin-bottom: 0.5rem;">🛠️ 개발자용 프롬프트 설정</h3>
+  
+    <!-- GPT 대화 프롬프트 -->
+    <div style="margin-bottom: 1rem;">
+      <label for="gptPromptInput" ><strong>GPT(학생 역할) 프롬프트(4-turbo):</strong></label><br>
+      <textarea id="gptPromptInput" rows="6" style="width: 100%; margin-top: 0.5rem; font-size: 1rem; color: #000000;"></textarea><br>
+      <button id="setGptPromptBtn" style="margin-top: 0.5rem;">GPT 프롬프트 설정</button>
+    </div>
+  
+    <!-- 피드백 프롬프트 -->
+    <div>
+      <label for="feedbackPromptInput"><strong>GPT(피드백 역할) 프롬프트(4-turbo):</strong></label><br>
+      <textarea id="feedbackPromptInput" rows="6" style="width: 100%; margin-top: 0.5rem; font-size: 1rem; color: #000000;"></textarea><br>
+      <button id="setFeedbackPromptBtn" style="margin-top: 0.5rem;">피드백 프롬프트 설정</button>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <!-- 활동 설명 영역 (전체 너비) -->
+    <div class="description-box">
+      <h2>📝 활동 설명</h2>
+      <p>이 활동은 예비 교사들이 수업 시나리오를 작성하고 피드백을 받기 위한 연습 공간입니다.</p>
+    </div>
+
+    <!-- 본문 영역: 좌측(이미지+챗봇) + 우측(피드백) -->
+    <div class="main-content">
+      <!-- 왼쪽: 이미지 + 챗봇 -->
+      <div class="left-panel">
+        <div class="image-box">
+          <div class="carousel">
+            <button class="carousel-btn left" id="prevBtn">&#9664;</button>
+            
+            <img id="carouselImage" src="/public/Imgs/test_1.png" alt="캐러셀 이미지" />
+
+
+            <button class="carousel-btn right" id="nextBtn">&#9654;</button>
+          </div>
+        </div>
+
+        <div class="chat-container">
+          <h1>Lesson Play Exercise</h1>
+          <div id="chatbox"></div>
+          <input type="text" id="userInput" placeholder="질문을 입력하세요..." />
+          <button id="sendBtn">질문하기</button>
+        </div>
+      </div>
+
+      <!-- 오른쪽: 피드백 -->
+      <div class="right-panel">
+        <button id="feedbackBtn">💬 피드백 받기</button>
+        <div id="feedbackArea">
+          <p class="placeholder">여기에 GPT 피드백이 표시됩니다.</p>
+        </div>
+        <!-- 결과 저장 버튼이 들어갈 공간 -->
+        <div id="downloadBtnArea" style="margin-top: 1rem; display: none;"></div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

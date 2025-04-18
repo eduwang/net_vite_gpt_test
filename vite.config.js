@@ -9,6 +9,8 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         exercise: resolve(__dirname, 'main_exercise.html'),
         exercise35: resolve(__dirname, 'main_exercise_35.html'),
+        exerciseAssistants: resolve(__dirname, 'main_exerciseAssistants.html'),
+        assistantsTest: resolve(__dirname, 'assistantsTest.html'),
       },
     },
   },
