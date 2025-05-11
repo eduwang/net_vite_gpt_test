@@ -12,6 +12,7 @@ export default defineConfig({
         exerciseAssistants: resolve(__dirname, 'main_exerciseAssistants.html'),
         assistantsTest: resolve(__dirname, 'assistantsTest.html'),
         multiCharacterChat: resolve(__dirname, 'multiCharacterChat.html'),
+        mainPrototype: resolve(__dirname, 'mainPrototype.html'),
       },
     },
   },
