@@ -11,6 +11,7 @@ export default defineConfig({
         exercise35: resolve(__dirname, 'main_exercise_35.html'),
         exerciseAssistants: resolve(__dirname, 'main_exerciseAssistants.html'),
         assistantsTest: resolve(__dirname, 'assistantsTest.html'),
+        multiCharacterChat: resolve(__dirname, 'multiCharacterChat.html'),
       },
     },
   },
